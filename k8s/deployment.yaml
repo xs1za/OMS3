@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oms3
+  namespace: oms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms3
+  template:
+    metadata:
+      labels:
+        app: oms3
+    spec:
+      containers:
+        - name: oms3
+          image: oms3:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: oms3-config
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
