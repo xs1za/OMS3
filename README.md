@@ -228,6 +228,6 @@ http://localhost:8003/docs
 ## Дальнейшее развитие
 
 - Добавить постоянное хранилище статусов отчетов.
-- Добавить отдельный worker для построения отчетов. Kafka остается event log; для командных jobs с retry/DLQ можно рассмотреть RabbitMQ/Celery.
+- Добавить lightweight worker для построения отчетов через RabbitMQ. Kafka хранит события как durable event log в пределах настроенной retention policy.
 - Добавить форматы выгрузки: XLSX, CSV, PDF.
 - Добавить авторизацию через `OMS1`.
