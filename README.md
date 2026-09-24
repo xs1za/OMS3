@@ -223,14 +223,15 @@ docker run --rm -p 8003:8000 oms3:latest
 ```bash
 kubectl apply -f ../platform/k8s/namespace.yaml
 kubectl apply -f k8s/
-kubectl -n oms port-forward svc/oms3 8003:80
 ```
 
-После port-forward встроенный Swagger UI OMS3 доступен по адресу:
+При установленном Ingress из `platform/k8s/ingress.yaml` встроенный Swagger UI OMS3 доступен без port-forward:
 
 ```text
-http://localhost:8003/docs
+http://oms.local/oms3/docs
 ```
+
+Если Ingress недоступен, для отладки можно использовать `kubectl -n oms port-forward svc/oms3 8003:80` и открыть `http://localhost:8003/docs`.
 
 ## Дальнейшее развитие
 
