@@ -204,13 +204,6 @@ http://localhost:8088
 http://oms.local/oms3/docs
 ```
 
-Браузером можно открыть `GET /health`; создание отчета нужно вызывать как `POST` из Swagger UI, Postman или `curl`:
-
-```text
-GET  http://oms.local/oms3/health
-POST http://oms.local/oms3/api/v1/report-tasks
-```
-
 ## Docker
 
 ```bash
@@ -223,15 +216,14 @@ docker run --rm -p 8003:8000 oms3:latest
 ```bash
 kubectl apply -f ../platform/k8s/namespace.yaml
 kubectl apply -f k8s/
+kubectl -n oms port-forward svc/oms3 8003:80
 ```
 
-При установленном Ingress из `platform/k8s/ingress.yaml` встроенный Swagger UI OMS3 доступен без port-forward:
+После port-forward встроенный Swagger UI OMS3 доступен по адресу:
 
 ```text
-http://oms.local/oms3/docs
+http://localhost:8003/docs
 ```
-
-Если Ingress недоступен, для отладки можно использовать `kubectl -n oms port-forward svc/oms3 8003:80` и открыть `http://localhost:8003/docs`.
 
 ## Дальнейшее развитие
 
